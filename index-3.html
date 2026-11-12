@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#4fd1c0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WAX · Gorjetas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Unbounded:wght@700;800&display=swap">
+<style>
+:root{--bg:#ffffff;--surface:#effaf8;--ink:#10325c;--muted:#566c85;--line:#c9e8e3;--aqua:#4fd1c0;--onaqua:#0a2a4a;--cash:#c93b78;--mb:#1f5fd6;--accent:#1f5fd6;--onaccent:#fff;--danger:#b4313a;--logobg:transparent;--logopad:0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0b1f2e;--surface:#11303f;--ink:#eaf7f5;--muted:#93b3bd;--line:#1f4756;--aqua:#5eddcb;--onaqua:#08233a;--cash:#ff94bd;--mb:#7aa8ff;--accent:#7aa8ff;--onaccent:#08233a;--danger:#ff9aa0;--logobg:#fff;--logopad:8px 12px}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0b1f2e;--surface:#11303f;--ink:#eaf7f5;--muted:#93b3bd;--line:#1f4756;--aqua:#5eddcb;--onaqua:#08233a;--cash:#ff94bd;--mb:#7aa8ff;--accent:#7aa8ff;--onaccent:#08233a;--danger:#ff9aa0;--logobg:#fff;--logopad:8px 12px}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:0 16px 48px}
+.stripe{display:flex;height:8px}.stripe span{flex:1}.stripe span:nth-child(1){background:var(--aqua)}.stripe span:nth-child(2){background:var(--mb)}.stripe span:nth-child(3){background:#ff7fb0}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:22px 0 4px}
+.logoplate{display:inline-block;background:var(--logobg);border-radius:12px;padding:var(--logopad)}
+img.logo{display:block;width:210px;max-width:100%;height:auto}
+.lock img.logo{width:260px}
+.bt{font:700 20px/1 Unbounded,system-ui,sans-serif;color:var(--cash)}
+h2{font:700 17px/1.3 Unbounded,system-ui,sans-serif;margin:30px 0 10px}
+.sub{color:var(--muted);margin:6px 0 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--muted);flex:1 1 130px}
+input,select,button{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;min-height:44px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--aqua);outline-offset:1px}
+.seg{display:flex;flex:1 1 200px}
+.seg button{flex:1;border-radius:0;cursor:pointer}
+.seg button:first-child{border-radius:10px 0 0 10px}.seg button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--onaccent);border-color:var(--accent);font-weight:600}
+.add{background:var(--aqua);color:var(--onaqua);border-color:var(--aqua);cursor:pointer;font-weight:700;padding:9px 20px}
+.ghost{cursor:pointer;color:var(--muted)}
+.big{font:800 40px/1.1 Unbounded,system-ui,sans-serif;color:var(--mb);margin:6px 0 2px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+@media(max-width:520px){.grid b{font-size:17px}img.logo{width:170px}}
+.grid div{border-top:4px solid var(--line);padding-top:6px}
+.grid .c{border-color:#ff7fb0}.grid .m{border-color:var(--mb)}.grid .a{border-color:var(--aqua)}
+.grid b{display:block;font-size:20px}
+.small{color:var(--muted);font-size:14px}
+.day{display:flex;justify-content:space-between;font-weight:700;border-bottom:2px solid var(--aqua);padding:14px 0 6px}
+.item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.tag{font-size:13px;padding:1px 9px;border-radius:99px;border:1.5px solid currentColor;white-space:nowrap}
+.tag.c{color:var(--cash)}.tag.m{color:var(--mb)}
+.item .n{flex:1;color:var(--muted);font-size:14px;overflow-wrap:anywhere}
+.item .v{font-variant-numeric:tabular-nums}
+.del{border:0;background:none;color:var(--danger);cursor:pointer;min-height:32px;padding:4px 8px}
+.empty{padding:22px 0;color:var(--muted)}
+.lock{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center}
+.lock[hidden]{display:none}
+.lock .box{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%;max-width:340px}
+.lock input{flex:1 1 140px;text-align:center;letter-spacing:.3em;font-size:20px}
+.edit-only{display:none}body.can-edit .edit-only{display:block}body.can-edit .no-edit{display:none}
+body:not(.can-edit) #import{display:none}
+@media(max-width:520px){input,select,button{min-height:48px}.row>.add{flex:1 1 100%}main{padding:0 14px 40px}}
+</style>
+</head>
+<body>
+<div class="lock" id="lock">
+  <span class="logoplate"><img class="logo" data-logo alt="WAX Grupo Mare"></span>
+  <div class="bt">Gorjetas</div>
+  <p class="sub" style="margin:0">Introduz a senha de acesso.</p>
+  <div class="box"><input type="password" id="pin" inputmode="numeric" autocomplete="off" aria-label="Senha de acesso"><button type="button" class="add" id="enter">Entrar</button></div>
+  <div class="small" id="lockmsg" role="status" style="min-height:20px">A carregar…</div>
+</div>
+<div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+<main id="app" hidden>
+<div class="brand"><span class="logoplate"><img class="logo" data-logo alt="WAX Grupo Mare"></span><span class="bt">Gorjetas</span></div>
+<p class="sub">Dinheiro e multibanco. O mês de gorjetas vai do dia 20 ao dia 19.</p>
+<div class="small" id="status" role="status" style="margin:-8px 0 14px"></div>
+
+<div class="card no-edit">
+  <div class="small" style="margin-bottom:8px">Para lançar ou alterar gorjetas, introduz a senha de edição.</div>
+  <div class="row"><label>Senha de edição<input type="password" id="epin" inputmode="numeric" autocomplete="off"></label><button type="button" class="add" id="eunlock">Desbloquear edição</button></div>
+  <div class="small" id="emsg" role="status" style="margin-top:8px;min-height:20px"></div>
+</div>
+<div class="card edit-only">
+  <div class="row">
+    <label>Data<input type="date" id="date"></label>
+    <label>Valor (€)<input type="number" id="amount" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></label>
+    <div class="seg" role="group" aria-label="Tipo de pagamento">
+      <button type="button" id="t-cash" aria-pressed="true">Dinheiro</button>
+      <button type="button" id="t-mb" aria-pressed="false">Multibanco</button>
+    </div>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <label style="flex:3 1 220px">Nota (opcional)<input type="text" id="note" placeholder="Ex.: mesa 12, almoço"></label>
+    <button type="button" class="add" id="add">Adicionar gorjeta</button>
+  </div>
+  <div style="margin-top:8px"><button type="button" class="ghost" id="elock">Bloquear edição</button></div>
+</div>
+
+<h2>Mês de gorjetas</h2>
+<div class="row"><label style="flex:1 1 260px">Período<select id="period"></select></label>
+<button type="button" class="add" id="export">Exportar para Excel</button></div>
+<div class="small" id="msg" role="status" style="margin-top:8px;min-height:20px"></div>
+
+<div class="card" style="margin-top:12px">
+  <div class="small" id="plabel"></div>
+  <div class="big" id="total">0,00 €</div>
+  <div class="small" id="count"></div>
+  <div class="grid">
+    <div class="c"><span class="small">Dinheiro</span><b id="cash">0,00 €</b></div>
+    <div class="m"><span class="small">Multibanco</span><b id="mb">0,00 €</b></div>
+    <div class="c"><span class="small">Média por dia · dinheiro</span><b id="avgc">0,00 €</b></div>
+    <div class="m"><span class="small">Média por dia · multibanco</span><b id="avgm">0,00 €</b></div>
+  </div>
+  <div class="small" style="margin-top:8px">Médias calculadas sobre os dias com gorjetas lançadas.</div>
+  <div class="row" style="margin-top:16px">
+    <label style="flex:0 1 200px">Pessoas a dividir<input type="number" id="staff" min="1" step="1" value="1"></label>
+    <div><span class="small">Cada pessoa recebe</span><div style="font-size:22px;font-weight:600" id="share">0,00 €</div></div>
+  </div>
+</div>
+
+<h2>Lançamentos por dia</h2>
+<div id="list"></div>
+</main>
+
+<script>window.onerror=function(m,u,l){var e=document.getElementById("lockmsg");if(e)e.textContent="Erro: "+m+" (linha "+l+")";};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+var APP_URL = 'COLE_AQUI_O_URL_DO_APPS_SCRIPT';
+var LOGO = ''
+  + 'data:image/png;base64,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';
+Array.prototype.forEach.call(document.querySelectorAll('[data-logo]'), function (i) { i.src = LOGO; });
+var MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+var state = { entries: [], staffBy: {} }, selected = null, type = 'cash', canEdit = false, pinV = '', pinE = '', busy = false;
+var fmt = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' });
+var $ = function (id) { return document.getElementById(id); };
+function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k) || ''; sessionStorage.setItem(k, v); } catch (e) {} return ''; }
+function setStatus(t) { $('status').textContent = t; }
+function hhmm() { return new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' }); }
+function api(action, b) {
+  b = b || {}; b.action = action;
+  if (b.pin === undefined) b.pin = pinE || pinV;
+  return fetch(APP_URL, { method: 'POST', body: JSON.stringify(b) }).then(function (r) { return r.json(); });
+}
+function netErr() { setStatus('Sem ligação. Os lançamentos só ficam guardados com internet.'); }
+function showApp() { $('lock').hidden = true; $('app').hidden = false; }
+function setEdit(v) { canEdit = v; document.body.classList.toggle('can-edit', v); render(); }
+function lockAll() {
+  pinV = ''; pinE = ''; ss('wax-pv', ''); ss('wax-pe', ''); setEdit(false);
+  $('app').hidden = true; $('lock').hidden = false; $('lockmsg').textContent = 'Introduz a senha de acesso.';
+}
+function apply(r) {
+  if (!r || r.error) { if (r && r.error === 'auth') lockAll(); else setStatus('Erro no servidor. Tenta outra vez.'); return false; }
+  state.entries = r.entries || []; state.staffBy = r.staffBy || {};
+  setStatus('Ligado · atualizado às ' + hhmm());
+  render(); return true;
+}
+function load() { return api('list').then(apply).catch(netErr); }
+function todayStr() {
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+// Período identificado pelo mês em que termina (dia 19). Dia >= 20 pertence ao mês seguinte.
+function periodKey(ds) {
+  var p = ds.split('-').map(Number), y = p[0], m = p[1], d = p[2];
+  if (d >= 20) { m += 1; if (m > 12) { m = 1; y += 1; } }
+  return y + '-' + String(m).padStart(2, '0');
+}
+function periodLabel(key) {
+  var p = key.split('-').map(Number), y = p[0], m = p[1];
+  var sm = m - 1, sy = y; if (sm < 1) { sm = 12; sy = y - 1; }
+  return '20 ' + MONTHS[sm - 1] + (sy !== y ? ' ' + sy : '') + ' – 19 ' + MONTHS[m - 1] + ' ' + y;
+}
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+}
+function fmtDay(ds) {
+  var p = ds.split('-').map(Number);
+  var wd = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'][new Date(p[0], p[1] - 1, p[2]).getDay()];
+  return wd + ', ' + p[2] + ' ' + MONTHS[p[1] - 1];
+}
+function staffFor(k) { var n = (state.staffBy || {})[k] || state.staff || 1; return Math.max(1, parseInt(n) || 1); }
+function periodStatus(key) {
+  var cur = periodKey(todayStr());
+  if (key < cur) return 'fechado';
+  if (key > cur) return 'ainda não iniciado';
+  var p = key.split('-').map(Number), end = new Date(p[0], p[1] - 1, 19), t = new Date();
+  var n = Math.round((end - new Date(t.getFullYear(), t.getMonth(), t.getDate())) / 86400000);
+  return n === 0 ? 'fecha hoje' : n === 1 ? 'fecha amanhã' : 'fecha em ' + n + ' dias';
+}
+function refreshPeriods() {
+  var keys = {};
+  keys[periodKey(todayStr())] = 1;
+  state.entries.forEach(function (e) { keys[periodKey(e.date)] = 1; });
+  var list = Object.keys(keys).sort().reverse();
+  if (!selected || !keys[selected]) selected = periodKey(todayStr());
+  $('period').innerHTML = list.map(function (k) {
+    return '<option value="' + k + '"' + (k === selected ? ' selected' : '') + '>' + periodLabel(k) + ' · ' + (k === periodKey(todayStr()) ? 'em curso' : k < periodKey(todayStr()) ? 'fechado' : 'futuro') + '</option>';
+  }).join('');
+}
+function render() {
+  refreshPeriods();
+  var es = state.entries.filter(function (e) { return periodKey(e.date) === selected; })
+    .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : b.id - a.id; });
+  var cash = 0, mb = 0, days = {};
+  es.forEach(function (e) {
+    if (e.type === 'cash') cash += e.amount; else mb += e.amount;
+    (days[e.date] = days[e.date] || []).push(e);
+  });
+  var total = cash + mb, nd = Object.keys(days).length;
+  var staff = staffFor(selected);
+  $('plabel').textContent = periodLabel(selected) + ' · ' + periodStatus(selected);
+  $('total').textContent = fmt.format(total);
+  $('count').textContent = es.length + (es.length === 1 ? ' lançamento' : ' lançamentos') + ' em ' + nd + (nd === 1 ? ' dia' : ' dias');
+  $('cash').textContent = fmt.format(cash);
+  $('mb').textContent = fmt.format(mb);
+  $('avgc').textContent = fmt.format(nd ? cash / nd : 0);
+  $('avgm').textContent = fmt.format(nd ? mb / nd : 0);
+  $('staff').value = staff;
+  $('staff').disabled = !canEdit;
+  $('share').textContent = fmt.format(total / staff);
+  if (!es.length) { $('list').innerHTML = '<div class="empty">Novo período: a contagem começa a zero. Os períodos anteriores continuam guardados no seletor acima.</div>'; return; }
+  $('list').innerHTML = Object.keys(days).sort().reverse().map(function (d) {
+    var sum = days[d].reduce(function (s, e) { return s + e.amount; }, 0);
+    return '<div class="day"><span>' + fmtDay(d) + '</span><span>' + fmt.format(sum) + '</span></div>' +
+      days[d].map(function (e) {
+        return '<div class="item"><span class="tag ' + (e.type === 'cash' ? 'c' : 'm') + '">' + (e.type === 'cash' ? 'Dinheiro' : 'Multibanco') + '</span>' +
+          '<span class="n">' + esc(e.note || '') + '</span><span class="v">' + fmt.format(e.amount) + '</span>' +
+          (canEdit ? '<button class="del" data-id="' + e.id + '" aria-label="Apagar lançamento">Apagar</button>' : '') + '</div>';
+      }).join('');
+  }).join('');
+}
+function periodEntries() { return state.entries.filter(function (e) { return periodKey(e.date) === selected; }); }
+
+async function exportXlsx() {
+  if (!window.XLSX) { $('msg').textContent = 'Não foi possível carregar o módulo de Excel.'; return; }
+  var es = periodEntries().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.ts || 0) - (b.ts || 0); });
+  var n = es.length + 1, cash = 0, mb = 0, days = {};
+  es.forEach(function (e) {
+    if (e.type === 'cash') cash += e.amount; else mb += e.amount;
+    var r = days[e.date] = days[e.date] || { c: 0, m: 0 };
+    if (e.type === 'cash') r.c += e.amount; else r.m += e.amount;
+  });
+  var staff = staffFor(selected), L = "'Lançamentos'!", Z = '#,##0.00';
+  var ws1 = XLSX.utils.aoa_to_sheet([['Data', 'Tipo', 'Valor (€)', 'Nota']].concat(es.map(function (e) {
+    return [e.date, e.type === 'cash' ? 'Dinheiro' : 'Multibanco', e.amount, e.note || ''];
+  })));
+  ws1['!cols'] = [{ wch: 12 }, { wch: 13 }, { wch: 12 }, { wch: 40 }];
+  for (var r = 2; r <= n; r++) ws1['C' + r].z = Z;
+  var ws0 = XLSX.utils.aoa_to_sheet([
+    ['Período', periodLabel(selected)],
+    ['Dinheiro', { t: 'n', v: cash, f: 'SUMIF(' + L + 'B2:B' + n + ',"Dinheiro",' + L + 'C2:C' + n + ')' }],
+    ['Multibanco', { t: 'n', v: mb, f: 'SUMIF(' + L + 'B2:B' + n + ',"Multibanco",' + L + 'C2:C' + n + ')' }],
+    ['Total', { t: 'n', v: cash + mb, f: 'B2+B3' }],
+    ['Pessoas a dividir', staff],
+    ['Por pessoa', { t: 'n', v: (cash + mb) / staff, f: 'B4/B5' }],
+    ['Dias com gorjetas', Object.keys(days).length],
+    ['Média por dia · dinheiro', { t: 'n', v: Object.keys(days).length ? cash / Object.keys(days).length : 0, f: 'IF(B7=0,0,B2/B7)' }],
+    ['Média por dia · multibanco', { t: 'n', v: Object.keys(days).length ? mb / Object.keys(days).length : 0, f: 'IF(B7=0,0,B3/B7)' }]
+  ]);
+  ws0['!cols'] = [{ wch: 28 }, { wch: 24 }];
+  ['B2', 'B3', 'B4', 'B6', 'B8', 'B9'].forEach(function (c) { ws0[c].z = Z; });
+  var dk = Object.keys(days).sort();
+  var ws2 = XLSX.utils.aoa_to_sheet([['Dia', 'Dinheiro', 'Multibanco', 'Total']].concat(dk.map(function (d) {
+    return [d, days[d].c, days[d].m, days[d].c + days[d].m];
+  })));
+  ws2['!cols'] = [{ wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 12 }];
+  for (var i = 2; i <= dk.length + 1; i++) ['B', 'C', 'D'].forEach(function (c) { ws2[c + i].z = Z; });
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws0, 'Resumo');
+  XLSX.utils.book_append_sheet(wb, ws1, 'Lançamentos');
+  XLSX.utils.book_append_sheet(wb, ws2, 'Por dia');
+  XLSX.writeFile(wb, 'gorjetas-ate-19-' + selected + '.xlsx');
+  $('msg').textContent = 'Ficheiro Excel pronto.';
+}
+$('export').onclick = exportXlsx;
+function setType(t) {
+  type = t;
+  $('t-cash').setAttribute('aria-pressed', t === 'cash');
+  $('t-mb').setAttribute('aria-pressed', t === 'mb');
+}
+$('t-cash').onclick = function () { setType('cash'); };
+$('t-mb').onclick = function () { setType('mb'); };
+$('add').onclick = function () {
+  if (!canEdit || busy) return;
+  var d = $('date').value, a = parseFloat(String($('amount').value).replace(',', '.'));
+  if (!d || !(a > 0)) { $('msg').textContent = 'Indica a data e um valor maior que zero.'; return; }
+  busy = true; $('add').disabled = true; $('msg').textContent = 'A guardar…';
+  api('add', { date: d, type: type, amount: Math.round(a * 100) / 100, note: $('note').value.trim() }).then(function (r) {
+    if (apply(r)) {
+      selected = periodKey(d); autoPeriod = selected === periodKey(todayStr());
+      $('amount').value = ''; $('note').value = '';
+      $('msg').textContent = 'Guardado ✓ Todos veem este lançamento.'; render();
+    } else { $('msg').textContent = 'Não foi possível guardar.'; }
+  }).catch(function () { $('msg').textContent = 'Sem ligação. Este lançamento não foi guardado.'; })
+    .then(function () { busy = false; $('add').disabled = false; $('amount').focus(); });
+};
+$('period').onchange = function () { selected = this.value; autoPeriod = selected === periodKey(todayStr()); render(); };
+$('staff').onchange = function () {
+  if (!canEdit) return;
+  api('staff', { key: selected, n: Math.max(1, parseInt(this.value) || 1) }).then(apply).catch(netErr);
+};
+$('list').onclick = function (ev) {
+  var id = ev.target.getAttribute && ev.target.getAttribute('data-id');
+  if (!id || !canEdit) return;
+  api('delete', { id: id }).then(apply).catch(netErr);
+};
+$('enter').onclick = function () {
+  var v = $('pin').value.trim(); $('lockmsg').textContent = 'A verificar…';
+  api('check', { pin: v }).then(function (r) {
+    if (r && r.role) {
+      pinV = v; ss('wax-pv', v);
+      if (r.role === 'edit') { pinE = v; ss('wax-pe', v); setEdit(true); }
+      $('pin').value = ''; showApp(); load();
+    } else { $('lockmsg').textContent = 'Senha incorreta.'; }
+  }).catch(function () { $('lockmsg').textContent = 'Sem ligação. Tenta outra vez.'; });
+};
+$('pin').onkeydown = function (e) { if (e.key === 'Enter') $('enter').onclick(); };
+$('eunlock').onclick = function () {
+  var v = $('epin').value.trim();
+  api('check', { pin: v }).then(function (r) {
+    if (r && r.role === 'edit') { pinE = v; ss('wax-pe', v); $('epin').value = ''; $('emsg').textContent = ''; setEdit(true); }
+    else { $('emsg').textContent = 'Senha de edição incorreta.'; }
+  }).catch(function () { $('emsg').textContent = 'Sem ligação. Tenta outra vez.'; });
+};
+$('epin').onkeydown = function (e) { if (e.key === 'Enter') $('eunlock').onclick(); };
+$('elock').onclick = function () { if (pinV === pinE) { lockAll(); return; } pinE = ''; ss('wax-pe', ''); setEdit(false); };
+
+var autoPeriod = true, lastCur = periodKey(todayStr());
+function checkRollover() {
+  var cur = periodKey(todayStr());
+  if (cur !== lastCur) { lastCur = cur; $('date').value = todayStr(); if (autoPeriod) selected = cur; render(); }
+  else { $('plabel').textContent = periodLabel(selected) + ' · ' + periodStatus(selected); }
+  if (!document.hidden && !$('app').hidden) load();
+}
+setInterval(checkRollover, 20000);
+document.addEventListener('visibilitychange', function () { if (!document.hidden) checkRollover(); });
+$('lockmsg').textContent = APP_URL.indexOf('https://script.google.com/') === 0 ? '' : 'Falta configurar o endereço do servidor (APP_URL).';
+$('date').value = todayStr();
+selected = periodKey(todayStr());
+render();
+pinV = ss('wax-pv'); pinE = ss('wax-pe');
+if (pinV) { showApp(); if (pinE) setEdit(true); setStatus('A ligar…'); load(); }
+</script>
+</body>
+</html>
