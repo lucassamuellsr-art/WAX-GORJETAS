@@ -80,7 +80,7 @@ body:not(.can-edit) #import{display:none}
 <div class="card edit-only">
   <div class="row">
     <label>Data<input type="date" id="date"></label>
-    <label>Valor (€)<input type="number" id="amount" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></label>
+    <label>Valor (€)<input type="text" id="amount" inputmode="decimal" autocomplete="off" placeholder="0,00"></label>
     <div class="seg" role="group" aria-label="Tipo de pagamento">
       <button type="button" id="t-cash" aria-pressed="true">Dinheiro</button>
       <button type="button" id="t-mb" aria-pressed="false">Multibanco</button>
